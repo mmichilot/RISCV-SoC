@@ -1,0 +1,3 @@
+[submodule "RISCV-multicycle"]
+	path = RISCV-multicycle
+	url = https://github.com/mmichilot/RISCV-multicycle
