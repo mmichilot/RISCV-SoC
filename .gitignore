@@ -1,1 +1,7 @@
 .vscode
+
+# Software build artifacts
+**/build
+
+# Verilator build artifacts
+**/obj_dir
