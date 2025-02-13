@@ -137,7 +137,7 @@ module soc (
     localparam LED_MASK = 32'hFFFF_FFFC;
 
     logic sram_sel, clint_sel, led_sel;
-    wb_decoder wb_decoder (
+    addr_decoder decoder (
         .adr_i           (wb_adr_o),
 
         .slv0_adr_prefix (SRAM_BASE),

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module wb_decoder (
+module addr_decoder (
     input  logic [31:0] adr_i,
 
     // Slave 0
