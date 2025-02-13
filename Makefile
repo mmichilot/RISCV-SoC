@@ -2,18 +2,18 @@ PROJ=soc
 TOP_MODULE=soc
 
 # Directories
-RTL_DIR     = ../rtl
-MODULE_DIRS = $(wildcard $(RTL_DIR)/*)
+CORE_DIR = ./core/rtl
+PERIPHERALS_DIR = ./peripherals
 BUILD_DIR   = ./build
 
 # Specify hardware revision of your OrangeCrab: `r0.1` or `r0.2`
 VERSION:=r0.2
 
-VERILOG_FILES += $(wildcard $(RTL_DIR)/*.sv)
-VERILOG_FILES += $(foreach dir,$(MODULE_DIRS),$(wildcard $(dir)/*.sv))
+VERILOG_FILES += $(wildcard $(CORE_DIR)/*.sv)
+VERILOG_FILES += $(wildcard $(PERIPHERALS_DIR)/*.sv)
 VERILOG_FILES += $(wildcard *.sv)
 
-INCLUDE_DIRS = $(MODULE_DIRS)
+INCLUDE_DIRS = $(CORE_DIR) $(PERIPHERALS_DIR)
 INCLUDE_FLAGS = $(addprefix -I,$(INCLUDE_DIRS))
 
 RM         = rm -rf
