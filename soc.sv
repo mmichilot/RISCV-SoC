@@ -129,28 +129,33 @@ module soc (
     //  | |_| |  __/ (_| (_) | (_| |  __/ |     //
     //  |____/ \___|\___\___/ \__,_|\___|_|     //
     //////////////////////////////////////////////
-    localparam SRAM_BASE = 32'h8000_0000;
-    localparam SRAM_MASK = ~(SRAM_SIZE-1);
-    localparam CLINT_BASE = 32'h0200_0000;
-    localparam CLINT_MASK = 32'hFFFF_0000;
-    localparam LED_BASE = 32'h0201_0000;
-    localparam LED_MASK = 32'hFFFF_FFFC;
+    localparam logic [31:0] SRAM_BASE = 32'h8000_0000;
+    localparam logic [31:0] SRAM_MASK = ~(SRAM_SIZE-1);
+    localparam logic [31:0] CLINT_BASE = 32'h0200_0000;
+    localparam logic [31:0] CLINT_MASK = 32'hFFFF_0000;
+    localparam logic [31:0] LED_BASE = 32'h0201_0000;
+    localparam logic [31:0] LED_MASK = 32'hFFFF_FFFC;
 
     logic sram_sel, clint_sel, led_sel;
-    addr_decoder decoder (
+    addr_decoder #(
+        .NUM_INPUTS(3)
+    ) decoder (
         .adr_i           (wb_adr_o),
 
-        .slv0_adr_prefix (SRAM_BASE),
-        .slv0_adr_mask   (SRAM_MASK),
-        .acmp0           (sram_sel),
+        .rules({
+            SRAM_BASE,
+            SRAM_MASK,
+            CLINT_BASE,
+            CLINT_MASK,
+            LED_BASE,
+            LED_MASK
+        }),
 
-        .slv1_adr_prefix (CLINT_BASE),
-        .slv1_adr_mask   (CLINT_MASK),
-        .acmp1           (clint_sel),
-
-        .slv2_adr_prefix (LED_BASE),
-        .slv2_adr_mask   (LED_MASK),
-        .acmp2           (led_sel)
+        .input_select({
+            sram_sel,
+            clint_sel,
+            led_sel
+        })
     );
 
     always_comb begin : wb_dat_i_mux
