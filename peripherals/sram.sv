@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module wb_sram
+module sram
     #(
         parameter SIZE_BYTES = 32_768,
         localparam NUM_WORDS = SIZE_BYTES/4,
