@@ -21,6 +21,9 @@ module tb_soc
 
 
     initial begin
+        $display("Firmware: %s", firmware_file);
+        $readmemh(firmware_file, soc.sram.mem);
+
         $display("Memory Mailbox: 0x%08X", mem_mailbox);
         $display();
 
