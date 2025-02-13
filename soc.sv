@@ -52,9 +52,9 @@ module soc (
     localparam SRAM_ADDR_WIDTH = $clog2(SRAM_SIZE);
     logic sram_ack_o;
     logic [31:0] sram_dat_o;
-    wb_sram #(
+    sram #(
         .SIZE_BYTES(SRAM_SIZE),
-        .FILE("../firmware/build/firmware.hex")
+        .FILE("./firmware/build/firmware.hex")
     ) sram (
         .wb_clk_i (clk),
         .wb_cyc_i (wb_cyc_o),
