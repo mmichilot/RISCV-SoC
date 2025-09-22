@@ -16,5 +16,7 @@
 				"lramseyer.vaporview"
 			]
 		}
-	}
+	},
+
+	"onCreateCommand": ["/bin/bash", "-c", "tabbypip install -r requirements.txt"]
 }
