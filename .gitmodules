@@ -1,3 +1,0 @@
-[submodule "RISCV-multicycle"]
-	path = core
-	url = https://github.com/mmichilot/RISCV-multicycle
