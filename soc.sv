@@ -23,7 +23,7 @@ module soc (
     logic wb_cyc_o, wb_stb_o, wb_we_o, wb_ack_i;
     logic [3:0] wb_sel_o;
     logic [31:0] wb_adr_o, wb_dat_i, wb_dat_o;
-    core core(
+    multicycle multicycle(
         .clk,
         .rst_n,
 
@@ -54,7 +54,7 @@ module soc (
     logic [31:0] sram_dat_o;
     sram #(
         .SIZE_BYTES(SRAM_SIZE),
-        .FILE("./firmware/build/firmware.hex")
+        .FILE("firmware.hex")
     ) sram (
         .wb_clk_i (clk),
         .wb_cyc_i (wb_cyc_o),

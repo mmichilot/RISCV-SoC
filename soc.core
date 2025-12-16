@@ -1,0 +1,63 @@
+CAPI=2:
+name: mmichilot:soc:soc:1.0.0
+description: A RISC-V SoC
+
+filesets:
+  rtl:
+    files:
+      - peripherals/addr_decoder.sv
+      - peripherals/clint.sv
+      - peripherals/led_driver.sv
+      - peripherals/sram.sv
+      - soc.sv
+    file_type: systemVerilogSource
+    depend: 
+      - mmichilot:cores:multicycle
+
+  firmware:
+    files:
+      - firmware/build/firmware.hex: {copyto: firmware.hex}
+    file_type: user
+  
+  tb:
+    files:
+      - sim/testbench.cpp
+      - sim/testbench.h: {is_include_file: true}
+      - sim/tb_soc.sv: {file_type: systemVerilogSource}
+    file_type: cppSource
+
+  fpga:
+    files:
+      - soc_ulx3s.lpf
+    file_type: LPF
+    
+targets:
+  default: &default
+    filesets:
+      - rtl
+      - firmware
+    toplevel: soc
+
+  sim: 
+    <<: *default
+    description: Simulate the design
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: ["--trace-fst", "--timing", "-Werror-UNOPTFLAT"]
+      run_options: ["--firmware", "firmware.hex"]
+    filesets_append:
+      - tb
+    toplevel: tb_soc
+
+  fpga:
+    <<: *default
+    description: Build the design for the ECP5 fpga
+    flow: trellis
+    flow_options:
+      nextpnr_options: ["--85k", "--package", "CABGA381"]
+    filesets_append:
+      - fpga
+
+provider:
+  
