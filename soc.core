@@ -58,6 +58,3 @@ targets:
       nextpnr_options: ["--85k", "--package", "CABGA381"]
     filesets_append:
       - fpga
-
-provider:
-  
