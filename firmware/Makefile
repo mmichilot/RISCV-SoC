@@ -10,7 +10,7 @@ INC_DIR := ./includes
 INC_FLAGS := $(addprefix -I,$(INC_DIR))
 
 # Tools
-RISCV_PREFIX := riscv64-unknown-elf-
+RISCV_PREFIX := riscv-none-elf-
 CC := $(RISCV_PREFIX)gcc
 LD := $(RISCV_PREFIX)ld
 OBJCOPY := $(RISCV_PREFIX)objcopy
